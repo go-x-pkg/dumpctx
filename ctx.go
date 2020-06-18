@@ -48,7 +48,7 @@ func (ctx *Ctx) EmitPrefix(w io.Writer) {
 	if ctx.isList {
 		fmt.Fprintf(w, "%c ", ListSeparator)
 	} else {
-		fmt.Fprintf(w, "%s", IndentToken)
+		fmt.Fprint(w, IndentToken)
 	}
 }
 
