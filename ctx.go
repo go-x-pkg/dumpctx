@@ -10,66 +10,66 @@ type Ctx struct {
 	isList bool
 }
 
-func (it *Ctx) SetIsList()   { it.isList = true }
-func (it *Ctx) UnsetIsList() { it.isList = false }
+func (ctx *Ctx) SetIsList()   { ctx.isList = true }
+func (ctx *Ctx) UnsetIsList() { ctx.isList = false }
 
-func (it *Ctx) Indent() string { return it.indent }
-func (it *Ctx) Enter()         { it.indent += IndentToken }
-func (it *Ctx) EnterList()     { it.Enter(); it.isList = true }
+func (ctx *Ctx) Indent() string { return ctx.indent }
+func (ctx *Ctx) Enter()         { ctx.indent += IndentToken }
+func (ctx *Ctx) EnterList()     { ctx.Enter(); ctx.isList = true }
 
-func (it *Ctx) Leave() {
-	if len(it.indent) == 0 {
+func (ctx *Ctx) Leave() {
+	if len(ctx.indent) == 0 {
 		return
 	}
 
-	it.indent = it.indent[:len(it.indent)-len(IndentToken)]
+	ctx.indent = ctx.indent[:len(ctx.indent)-len(IndentToken)]
 }
-func (it *Ctx) LeaveList() { it.Leave(); it.isList = false }
+func (ctx *Ctx) LeaveList() { ctx.Leave(); ctx.isList = false }
 
-func (it *Ctx) NoList(cb func()) {
-	isList := it.isList
+func (ctx *Ctx) NoList(cb func()) {
+	isList := ctx.isList
 
-	// clear is list if it is set
+	// clear is list if ctx is set
 	if isList {
-		it.isList = false
+		ctx.isList = false
 	}
 
 	cb()
 
 	// restore
 	if isList {
-		it.isList = true
+		ctx.isList = true
 	}
 }
 
-func (it *Ctx) EmitPrefix(w io.Writer) {
-	fmt.Fprint(w, it.indent)
+func (ctx *Ctx) EmitPrefix(w io.Writer) {
+	fmt.Fprint(w, ctx.indent)
 
-	if it.isList {
+	if ctx.isList {
 		fmt.Fprintf(w, "%c ", ListSeparator)
 	} else {
 		fmt.Fprintf(w, "%s", IndentToken)
 	}
 }
 
-func (it *Ctx) WrapList(cb func()) {
-	it.EnterList()
+func (ctx *Ctx) WrapList(cb func()) {
+	ctx.EnterList()
 	cb()
-	it.LeaveList()
+	ctx.LeaveList()
 }
 
-func (it *Ctx) Wrap(cb func()) {
-	it.Enter()
+func (ctx *Ctx) Wrap(cb func()) {
+	ctx.Enter()
 	cb()
-	it.Leave()
+	ctx.Leave()
 }
 
-func (it *Ctx) Copy(other *Ctx) {
-	it.indent = other.indent
-	it.isList = other.isList
+func (ctx *Ctx) Copy(other *Ctx) {
+	ctx.indent = other.indent
+	ctx.isList = other.isList
 }
 
-func (it *Ctx) Init() {
-	it.indent = ""
-	it.isList = false
+func (ctx *Ctx) Init() {
+	ctx.indent = ""
+	ctx.isList = false
 }
