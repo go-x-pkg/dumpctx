@@ -26,6 +26,22 @@ func (it *Ctx) Leave() {
 }
 func (it *Ctx) LeaveList() { it.Leave(); it.isList = false }
 
+func (it *Ctx) NoList(cb func()) {
+	isList := it.isList
+
+	// clear is list if it is set
+	if isList {
+		it.isList = false
+	}
+
+	cb()
+
+	// restore
+	if isList {
+		it.isList = true
+	}
+}
+
 func (it *Ctx) EmitPrefix(w io.Writer) {
 	fmt.Fprint(w, it.indent)
 
