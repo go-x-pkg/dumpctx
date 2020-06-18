@@ -10,8 +10,8 @@ Package to dump some nested/tree data.
 [godev-image]: https://img.shields.io/badge/go.dev-reference-5272B4?logo=go&logoColor=white
 [godev-url]: https://pkg.go.dev/github.com/go-x-pkg/dumpctx
 
-[build-image]: https://travis-ci.org/go-x-pkg/dumpctx.svg?branch=master
-[build-url]: https://travis-ci.org/go-x-pkg/dumpctx
+[build-image]: https://travis-ci.com/go-x-pkg/dumpctx.svg?branch=master
+[build-url]: https://travis-ci.com/go-x-pkg/dumpctx
 
 [coverage-image]: https://coveralls.io/repos/github/go-x-pkg/dumpctx/badge.svg?branch=master
 [coverage-url]: https://coveralls.io/github/go-x-pkg/dumpctx?branch=master
